@@ -32,6 +32,7 @@
     </div>
     <script src="./js/jquery-1.12.4.min.js"></script>
     <script src="./js/tools/config.js"></script>
+    <script src="./js/tools/user.js"></script>
     <script>
         // 获取文本框
         var $ipt_txt = $('.input_txt');
@@ -49,20 +50,17 @@
             }
 
             // 将登录内容发送到服务端进行检测
-            $.ajax({
-                type: 'POST',
-                url: LOGIN,
+            user.login({
                 data: {
                     user_name: username,
                     password: password
                 },
-                success: function (res) {
+                success: function () {
                     // 如果登录成功，跳转到首页,否则弹出用户名或密码出错
-                    if (res.code == 200) {
-                        location.href = './index.html';
-                    } else {
-                        alert('用户名或密码出错');
-                    }
+                    location.href = './index.html';
+                },
+                fail: function () {
+                    alert('用户名或密码出错');
                 }
             })
         })
