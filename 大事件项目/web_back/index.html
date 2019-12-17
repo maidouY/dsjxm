@@ -76,6 +76,13 @@
                 }
             })
         })
+        user.getUser({
+            success: function (res) {
+                $('.user_info img,.user_center_link img').prop('src', res.data.user_pic);
+                $('.user_info span').html('欢迎&nbsp&nbsp' + res.data.nickname);
+            }
+        })
+
     </script>
 
     <script>
