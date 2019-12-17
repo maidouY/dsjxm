@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="css/iconfont.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="js/jquery-1.12.4.min.js"></script>
-
+    <script src="./js/tools/config.js"></script>
+    <script src="./js/tools/user.js"></script>
 </head>
 
 <body>
@@ -22,43 +23,44 @@
         <div class="container-fluid common_con">
             <form class="form-horizontal article_form">
                 <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">用户名称：</label>
+                    <label for="username" class="col-sm-2 control-label">用户名称：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="inputEmail3" value="李思思">
+                        <input type="text" class="form-control" id="username" value="李思思" name="username">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">昵称：</label>
+                    <label for="nickname" class="col-sm-2 control-label">昵称：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="inputEmail3" value="思思">
+                        <input type="text" class="form-control" id="nickname" value="思思" name="nickname">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">邮箱：</label>
+                    <label for="email" class="col-sm-2 control-label">邮箱：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="inputEmail3" value="lisisi@126.com">
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-2 control-label">用户图标：</label>
-                    <div class="col-sm-10">
-                        <img src="images/2.jpg" alt="" class="user_pic">
-                        <input type="file" id="exampleInputFile">
+                        <input type="text" class="form-control" id="email" value="lisisi@126.com" name="email">
                     </div>
                 </div>
 
                 <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">密码：</label>
-                        <div class="col-sm-4">
-                            <input type="password" class="form-control" id="inputEmail3" value="12345678">
-                        </div>
+                    <label for="user_pic" class="col-sm-2 control-label">用户图标：</label>
+                    <div class="col-sm-10">
+                        <img src="images/2.jpg" alt="" class="user_pic">
+                        <input type="file" id="user_pic" name="user_pic">
                     </div>
-               
-    
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="col-sm-2 control-label">密码：</label>
+                    <div class="col-sm-4">
+                        <input type="password" class="form-control" id="password" value="12345678" name="password">
+                    </div>
+                </div>
+
+
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-success">修改</button>
+                        <!-- <button type="submit" class="btn btn-success">修改</button> -->
+                        <button type="button" class="btn btn-success" id="btn">修改</button>
                     </div>
                 </div>
             </form>
@@ -66,5 +68,58 @@
     </div>
 
 </body>
+<script>
+    // 获取用户信息
+    user.userinfo({
+        success: function (res) {
+            $.each(res.data, function (key, elm) {
+                // 用户的头像展示需要使用img，不能在文件域展示
+                if (key == 'user_pic') {
+                    $('.user_pic').prop('src', elm);
+                    return;
+                }
+                $('#' + key).val(elm);
+            })
+        }
+    })
+    // 编辑用户信息
+    $('#btn').on('click', function () {
+        if (
+            $('#username').val().trim() == '' ||
+            $('#nickname').val().trim() == '' ||
+            $('#email').val().trim() == '' ||
+            $('#password').val().trim() == '' ||
+            $('#user_pic')[0].files.length == 0
+        ) {
+            alert('请填写完整信息！');
+            return;
+        }
+
+        // 将数据发送给服务端处理，用formData
+        // 传入参数必须为DOM对象形式的form标签
+        var fd = new FormData($('form')[0]);
+
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8000/admin/userinfo_edit',
+            data: fd,
+            contentType: false,    //不需要jQuery设置内容类型
+            processData: false,    //不需要jQuery进行内容处理
+            success: function (res) {
+                console.log(res);
+
+                if (res.code == 200) {
+                    parent.location.href = './login.html';
+                }
+            }
+        })
+    })
+    // 给文件域注册change事件
+    // URL.createObjectURL()返回的是浏览器自动生成的临时地址
+    $('#user_pic').on('change', function () {
+        var tempSrc = URL.createObjectURL($(this)[0].files[0]);
+        $('.user_pic').prop('src', tempSrc);
+    })
+</script>
 
 </html>

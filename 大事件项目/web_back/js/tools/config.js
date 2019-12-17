@@ -8,3 +8,5 @@ var LOGIN = BASE_URL + '/admin/login';
 var LOGOUT = BASE_URL + '/admin/logout';
 // 获取用户信息
 var GETUSER = BASE_URL + '/admin/getuser';
+// 个人中心获取用户信息
+var USERINFO = BASE_URL + '/admin/userinfo_get';

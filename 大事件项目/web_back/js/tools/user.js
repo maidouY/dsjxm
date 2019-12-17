@@ -38,5 +38,15 @@ var user = {
                 }
             }
         })
+    },
+    userinfo: function (options) {
+        $.ajax({
+            url: USERINFO,
+            success: function (res) {
+                if (res.code == 200) {
+                    options.success(res);
+                }
+            }
+        })
     }
 }
