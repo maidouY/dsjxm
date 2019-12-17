@@ -9,4 +9,16 @@ var LOGOUT = BASE_URL + '/admin/logout';
 // 获取用户信息
 var GETUSER = BASE_URL + '/admin/getuser';
 // 个人中心获取用户信息
-var USERINFO = BASE_URL + '/admin/userinfo_get';
+var USERINFO_G = BASE_URL + '/admin/userinfo_get';
+// 个人中心编辑用户信息
+var USERINFO_E = BASE_URL + '/admin/userinfo_edit';
+// 文章类别获取
+var CATEGORY_SEARCG = BASE_URL + '/admin/category_search';
+// 新增文章类别
+var CATEGORY_ADD = BASE_URL + '/admin/category_add';
+// 编辑文章类别
+var CATEGORY_EDIT = BASE_URL + '/admin/category_edit';
+// 删除文章类别
+var CATEGORY_DEL = BASE_URL + '/admin/category_delete';
+
+
