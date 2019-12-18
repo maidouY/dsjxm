@@ -75,7 +75,8 @@
                 <tfoot>
                     <tr>
                         <td colspan="3" class="text-center">
-                            <a href="#" class="btn btn-success" data-toggle="modal" data-target="#addModal">新增分类</a>
+                            <a href="#" class="btn btn-success" data-toggle="modal" data-target="#addModal"
+                                id="addCate">新增分类</a>
                         </td>
                     </tr>
                 </tfoot>
@@ -162,6 +163,10 @@
         // 点击编辑，弹出模态框，将新增替换成提交编辑
         // 点击新增，模态框隐藏提交编辑；点击编辑，隐藏新增
         // 给编辑按钮注册点击事件,事件委托
+        $('#addCate').on('click', function () {
+            $('#modal_add').show();
+            $('#modal_edit').hide();
+        })
         $('tbody').on('click', '.edit', function () {
             // 显示模态框
             $('#addModal').modal('show');
