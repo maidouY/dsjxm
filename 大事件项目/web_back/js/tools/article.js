@@ -70,5 +70,21 @@ var article = {
                 }
             }
         })
+    },
+    pusharticle: function (options) {
+        $.ajax({
+            type: 'POST',
+            url: PUBLISH,
+            data: options.data,
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                if (res.code == 201) {
+                    options.success();
+                } else {
+                    options.fail();
+                }
+            }
+        })
     }
 }

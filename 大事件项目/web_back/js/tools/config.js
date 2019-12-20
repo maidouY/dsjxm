@@ -22,3 +22,5 @@ var CATEGORY_EDIT = BASE_URL + '/admin/category_edit';
 var CATEGORY_DEL = BASE_URL + '/admin/category_delete';
 // 文章搜索
 var SEARCH = BASE_URL + '/admin/search';
+// 发布文章
+var PUBLISH = BASE_URL + '/admin/article_publish';
